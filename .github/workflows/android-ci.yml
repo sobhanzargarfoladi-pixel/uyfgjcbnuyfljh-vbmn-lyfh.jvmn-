@@ -22,14 +22,15 @@ jobs:
           distribution: temurin
           java-version: "17"
 
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: "8.10.2"
 
       - name: Install Android SDK parts
-        run: |
-          yes | sdkmanager --licenses > /dev/null || true
-          sdkmanager "platforms;android-35" "build-tools;35.0.0" "ndk;26.1.10909125"
+        run: sdkmanager "platforms;android-35" "build-tools;35.0.0" "ndk;26.1.10909125"
 
       - name: Build debug APK
         working-directory: ${{ env.PROJECT_DIR }}
